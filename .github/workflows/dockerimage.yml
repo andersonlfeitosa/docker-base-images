@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Remove shallow
+        # run: git fetch --prune --unshallow
+        run: git fetch --depth=10000
+
+      - name: Build Docker base image - Java
+        run: cd java; docker build . --file Dockerfile --tag andersonlfeitosa/java-microservice-image-base:1
+
+      - name: Docker login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin docker.io
+
+      - name: Push Docker image to DockerHub
+        run: docker push andersonlfeitosa/java-microservice-image-base:1
