@@ -22,11 +22,17 @@ jobs:
       - name: Build Docker base image for Java
         run: cd java; docker build . --file Dockerfile --tag andersonlfeitosa/java-microservice-base-image:1
 
+      - name: Build Docker base image for Node
+        run: cd node; docker build . --file Dockerfile --tag andersonlfeitosa/node-microservice-base-image:1
+
       - name: Docker login
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin docker.io
 
-      - name: Push Docker image to DockerHub
+      - name: Push Java Docker base image to DockerHub
         run: docker push andersonlfeitosa/java-microservice-base-image:1
+
+      - name: Push Node Docker base image to DockerHub
+        run: docker push andersonlfeitosa/node-microservice-base-image:1
