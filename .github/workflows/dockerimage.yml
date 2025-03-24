@@ -19,7 +19,7 @@ jobs:
         # run: git fetch --prune --unshallow
         run: git fetch --depth=10000
 
-      - name: Build Docker base image - Java
+      - name: Build Docker base image for Java
         run: cd java; docker build . --file Dockerfile --tag andersonlfeitosa/java-microservice-image-base:1
 
       - name: Docker login
