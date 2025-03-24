@@ -20,7 +20,7 @@ jobs:
         run: git fetch --depth=10000
 
       - name: Build Docker base image for Java
-        run: cd java; docker build . --file Dockerfile --tag andersonlfeitosa/java-microservice-image-base:1
+        run: cd java; docker build . --file Dockerfile --tag andersonlfeitosa/java-microservice-base-image:1
 
       - name: Docker login
         env:
@@ -29,4 +29,4 @@ jobs:
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin docker.io
 
       - name: Push Docker image to DockerHub
-        run: docker push andersonlfeitosa/java-microservice-image-base:1
+        run: docker push andersonlfeitosa/java-microservice-base-image:1
