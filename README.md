@@ -2,9 +2,7 @@
 
 Repository to [Docker](https://www.docker.com) base images
 
----
-
 ## Java
 
-- Java 21 LTS
-- andersonlfeitosa/java-microservice-image-base:21
+- Based on openjdk:21-slim
+- andersonlfeitosa/java-microservice-image-base:1
